@@ -5,4 +5,5 @@ export interface Album {
     pl: string
   }
   isBest: boolean
+  dateAdded: number
 }

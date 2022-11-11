@@ -4,7 +4,7 @@ import { type Album } from "./AlbumStore.config"
 
 interface AlbumsState {
   albums: Album[]
-  addAlbum: (album: Omit<Album, "id" | "isBest">) => void
+  addAlbum: (album: Omit<Album, "id" | "isBest" | "dateAdded">) => void
   removeAlbum: (albumId: string) => void
 }
 
@@ -16,6 +16,7 @@ export const useAlbumsStore = create<AlbumsState>()(
         const newAlbum = {
           id: Math.random().toString(36).substring(3),
           isBest: false,
+          dateAdded: new Date().getTime(),
           ...album,
         }
         return set((state) => ({ albums: [...state.albums, newAlbum] }))

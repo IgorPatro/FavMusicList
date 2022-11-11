@@ -1,14 +1,16 @@
 import React from "react"
 
+export type Order = "newest" | "oldest"
+
 interface Props {
   children: React.ReactNode
 }
 
 interface IFilterSettingsContext {
   query: string
-  order: "newest" | "oldest"
+  order: Order
   setQuery: (query: string) => void
-  setOrder: (order: "newest" | "oldest") => void
+  setOrder: (order: Order) => void
 }
 
 const defaultState: IFilterSettingsContext = {
@@ -23,10 +25,10 @@ const FilterSettingsContext =
 
 const FilterSettingsContextProvider = ({ children }: Props) => {
   const [query, setQuery] = React.useState("")
-  const [order, setOrder] = React.useState<"newest" | "oldest">("newest")
+  const [order, setOrder] = React.useState<Order>("newest")
 
   const handleSetQuery = (query: string) => setQuery(query)
-  const handleSetOrder = (order: "newest" | "oldest") => setOrder(order)
+  const handleSetOrder = (order: Order) => setOrder(order)
 
   return (
     <FilterSettingsContext.Provider

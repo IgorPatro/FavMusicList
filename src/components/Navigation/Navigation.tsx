@@ -1,6 +1,5 @@
 import React from "react"
-import { useLangContext } from "context/LangContext"
-import { useFilterSettingsContext } from "context/FilterSettingsContext"
+import { useFilterSettingsContext, Order } from "context/FilterSettingsContext"
 import Search from "components/Search/Search"
 import Table from "icons/table"
 import Grid from "icons/grid"
@@ -9,7 +8,11 @@ import { useDebounce } from "hooks/useDebounce"
 const Navigation = () => {
   const [query, setQuery] = React.useState("")
   const debouncedQuery = useDebounce(query, 500)
-  const { setQuery: setGlobalQuery } = useFilterSettingsContext()
+  const {
+    setQuery: setGlobalQuery,
+    order,
+    setOrder,
+  } = useFilterSettingsContext()
 
   React.useEffect(() => {
     setGlobalQuery(debouncedQuery)
@@ -19,17 +22,21 @@ const Navigation = () => {
     <header className="w-full bg-slate-600 p-8 rounded-md flex justify-between">
       <div className="flex gap-2">
         <Search onChange={setQuery} value={query} />
-        <select className="select select-bordered w-full max-w-xs">
-          <option disabled selected>
-            Who shot first?
-          </option>
-          <option>Han Solo</option>
-          <option>Greedo</option>
+        <select
+          className="select select-bordered w-full max-w-xs"
+          value={order}
+          onChange={(e) => setOrder(e.target.value as Order)}
+        >
+          <option value="newest">Newest</option>
+          <option value="oldest">Oldest</option>
         </select>
       </div>
       <div className="flex gap-2">
         <label className="swap">
-          <input type="checkbox" />
+          <input
+            type="checkbox"
+            onChange={(e) => console.log(e.target.checked)}
+          />
           <Table />
           <Grid />
         </label>
