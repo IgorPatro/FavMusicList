@@ -6,6 +6,8 @@ interface AlbumsState {
   albums: Album[]
   addAlbum: (album: Album) => void
   removeAlbum: (albumId: string) => void
+  _hasHydrated: boolean
+  setHasHydrated: (isHydrated: boolean) => void
 }
 
 export const useAlbumsStore = create<AlbumsState>()(
@@ -18,9 +20,18 @@ export const useAlbumsStore = create<AlbumsState>()(
         set((state) => ({
           albums: state.albums.filter((album) => album.id !== albumId),
         })),
+      _hasHydrated: false,
+      setHasHydrated: (isHydrated) => {
+        set({
+          _hasHydrated: isHydrated,
+        })
+      },
     }),
     {
       name: "albums-store",
+      onRehydrateStorage: () => (state) => {
+        state?.setHasHydrated(true)
+      },
     }
   )
 )

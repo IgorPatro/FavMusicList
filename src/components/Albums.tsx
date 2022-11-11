@@ -9,6 +9,11 @@ const Albums = () => {
     (state) => [state.albums, state.addAlbum, state.removeAlbum],
     shallow
   )
+  const hasHydreted = useAlbumsStore((state) => state._hasHydrated)
+
+  if (!hasHydreted) {
+    return <p>Loading...</p>
+  }
 
   return (
     <div>
