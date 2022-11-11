@@ -2,22 +2,33 @@ import React from "react"
 import { setCookie } from "cookies-next"
 
 interface Props {
-  value: string
+  value: Languages
   children: React.ReactNode
 }
 
+export type Languages = "pl" | "en"
+
 interface ILangContext {
-  lang: string
+  lang: Languages
   switchLang: () => void
+  internationalizeMessage: (message: Message, language: Languages) => string
 }
 
-const LangContext = React.createContext<ILangContext>({
-  lang: "",
+interface Message {
+  en: string
+  pl: string
+}
+
+const defaultState: ILangContext = {
+  lang: "pl",
   switchLang: () => null,
-})
+  internationalizeMessage: (message, language) => message[language],
+}
+
+const LangContext = React.createContext<ILangContext>(defaultState)
 
 const LangContextProvider = ({ children, value }: Props) => {
-  const [lang, setLang] = React.useState(value || "pl")
+  const [lang, setLang] = React.useState<Languages>(value || "pl")
 
   const switchLang = () => {
     const newLang = lang === "pl" ? "en" : "pl"
@@ -27,7 +38,7 @@ const LangContextProvider = ({ children, value }: Props) => {
   }
 
   return (
-    <LangContext.Provider value={{ lang, switchLang }}>
+    <LangContext.Provider value={{ ...defaultState, lang, switchLang }}>
       {children}
     </LangContext.Provider>
   )

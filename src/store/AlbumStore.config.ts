@@ -1,5 +1,8 @@
 export interface Album {
   id: string
-  title: string
-  image: string
+  title: {
+    en: string
+    pl: string
+  }
+  isBest: boolean
 }

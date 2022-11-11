@@ -1,18 +1,19 @@
 import * as React from "react"
-import LangContextProvider from "context/LangContext"
+import LangContextProvider, { type Languages } from "context/LangContext"
 import { getCookie } from "cookies-next"
 import { GetServerSideProps } from "next"
-import Albums from "components/Albums"
+import Albums from "components/Albums/Albums"
+import Form from "components/Form/Form"
 
 interface Props {
-  lang: string
+  lang: Languages
 }
 
 const Home = ({ lang }: Props) => {
   return (
     <LangContextProvider value={lang}>
-      <h1>Hello world!</h1>
       <Albums />
+      <Form />
     </LangContextProvider>
   )
 }
