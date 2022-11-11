@@ -4,15 +4,16 @@ import SearchIcon from "icons/search"
 interface Props {
   value: string
   onChange: (value: string) => void
+  placeholder?: string
 }
 
-const Search = ({ onChange, value }: Props) => {
+const Search = ({ onChange, value, placeholder }: Props) => {
   return (
     <div className="form-control">
       <div className="input-group">
         <input
           type="text"
-          placeholder="Search…"
+          placeholder={placeholder || "Search..."}
           className="input input-bordered"
           value={value}
           onChange={(e) => onChange(e.target.value)}

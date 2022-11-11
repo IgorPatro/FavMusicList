@@ -10,18 +10,18 @@ export type Languages = "pl" | "en"
 
 interface ILangContext {
   lang: Languages
-  switchLang: () => void
+  changeLang: (lang: Languages) => void
   internationalizeMessage: (message: Message) => string
 }
 
-interface Message {
+export interface Message {
   en: string
   pl: string
 }
 
 const defaultState: ILangContext = {
   lang: "pl",
-  switchLang: () => null,
+  changeLang: () => null,
   internationalizeMessage: (message) => message["pl"],
 }
 
@@ -30,11 +30,9 @@ const LangContext = React.createContext<ILangContext>(defaultState)
 const LangContextProvider = ({ children, value }: Props) => {
   const [lang, setLang] = React.useState<Languages>(value || "pl")
 
-  const switchLang = () => {
-    const newLang = lang === "pl" ? "en" : "pl"
-
-    setLang(newLang)
-    setCookie("lang", newLang)
+  const changeLang = (lang: Languages) => {
+    setLang(lang)
+    setCookie("lang", lang)
   }
 
   const internationalizeMessage = (message: Message) => {
@@ -42,7 +40,7 @@ const LangContextProvider = ({ children, value }: Props) => {
   }
 
   return (
-    <LangContext.Provider value={{ internationalizeMessage, lang, switchLang }}>
+    <LangContext.Provider value={{ internationalizeMessage, lang, changeLang }}>
       {children}
     </LangContext.Provider>
   )

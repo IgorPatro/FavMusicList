@@ -1,6 +1,7 @@
 import create from "zustand"
 import { persist } from "zustand/middleware"
 import { type Album } from "./AlbumStore.config"
+import { v4 as uuidv4 } from "uuid"
 
 interface AlbumsState {
   albums: Album[]
@@ -10,11 +11,11 @@ interface AlbumsState {
 
 export const useAlbumsStore = create<AlbumsState>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       albums: [],
       addAlbum: (album) => {
         const newAlbum = {
-          id: Math.random().toString(36).substring(3),
+          id: uuidv4(),
           isBest: false,
           dateAdded: new Date().getTime(),
           ...album,
