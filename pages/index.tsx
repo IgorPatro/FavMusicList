@@ -1,5 +1,6 @@
 import * as React from "react"
 import LangContextProvider, { type Languages } from "context/LangContext"
+import FilterSettingsContextProvider from "context/FilterSettingsContext"
 import { getCookie } from "cookies-next"
 import { GetServerSideProps } from "next"
 import Form from "components/Form/Form"
@@ -17,15 +18,17 @@ interface Props {
 const Home = ({ lang }: Props) => {
   return (
     <LangContextProvider value={lang}>
-      <div className="p-8 pb-20 lg:p-24">
-        <div className="m-auto max-w-screen-xl">
-          <Navigation />
-          <div className="flex gap-8 relative items-start">
-            <DynamicAlbums />
-            <Form />
+      <FilterSettingsContextProvider>
+        <div className="p-8 pb-20 lg:p-24">
+          <div className="m-auto max-w-screen-xl">
+            <Navigation />
+            <div className="flex gap-8 relative items-start">
+              <DynamicAlbums />
+              <Form />
+            </div>
           </div>
         </div>
-      </div>
+      </FilterSettingsContextProvider>
     </LangContextProvider>
   )
 }

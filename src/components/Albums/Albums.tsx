@@ -1,12 +1,14 @@
 import React from "react"
 import { useAlbumsStore } from "store/AlbumsStore"
 import { useLangContext } from "context/LangContext"
+import { useFilterSettingsContext } from "context/FilterSettingsContext"
 
 const Albums = () => {
   const { internationalizeMessage } = useLangContext()
   const albums = useAlbumsStore((state) => state.albums)
   const removeAlbum = useAlbumsStore((state) => state.removeAlbum)
   const sorted = albums.filter((album) => album.id !== "da")
+  const { query, order } = useFilterSettingsContext()
 
   return (
     <div className="w-full">
