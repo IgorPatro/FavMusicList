@@ -1,6 +1,7 @@
 import React from "react"
 import { useAlbumsStore } from "store/AlbumsStore"
 import shallow from "zustand/shallow"
+import { useLangContext } from "context/LangContext"
 
 const Albums = () => {
   const [isHydrated, setIsHydrated] = React.useState(false)
@@ -16,7 +17,6 @@ const Albums = () => {
   return (
     <div>
       Albums Store
-      <br />
       {isHydrated && albums.length
         ? albums.map((album) => (
             <div key={album.id} onClick={() => removeAlbum(album.id)}>
