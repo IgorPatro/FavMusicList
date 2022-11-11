@@ -23,7 +23,9 @@ const Home = ({ lang }: Props) => {
           <div className="m-auto max-w-screen-xl">
             <Navigation />
             <div className="flex gap-8 relative items-start">
-              <DynamicAlbums />
+              <React.Suspense fallback={<div className="w-full" />}>
+                <DynamicAlbums />
+              </React.Suspense>
               <Form />
             </div>
           </div>

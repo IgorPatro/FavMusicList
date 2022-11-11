@@ -1,45 +1,20 @@
 import React from "react"
 import { useAlbumsStore } from "store/AlbumsStore"
-import { useLangContext } from "context/LangContext"
 import { useFilterSettingsContext } from "context/FilterSettingsContext"
 import { filterAlbums } from "utils/filterAlbums"
+import Table from "./Table/Table"
+import Grid from "./Grid/Grid"
 
 const Albums = () => {
-  const { internationalizeMessage } = useLangContext()
   const albums = useAlbumsStore((state) => state.albums)
-  const removeAlbum = useAlbumsStore((state) => state.removeAlbum)
   const { query, order } = useFilterSettingsContext()
   const sorted = filterAlbums(albums, query, order)
 
   return (
     <div className="w-full">
       <div className="overflow-x-auto">
-        <table className="table w-full">
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th> </th>
-              <th>ID</th>
-            </tr>
-          </thead>
-          <tbody>
-            {sorted.map(({ id, title }) => (
-              <tr key={id}>
-                <td>{internationalizeMessage(title)}</td>
-                <td>
-                  <button
-                    onClick={() => removeAlbum(id)}
-                    className="btn btn-primary"
-                  >
-                    {internationalizeMessage({ pl: "Usuń", en: "Remove" })}
-                  </button>
-                  <button className="btn btn-secondary">BestOfTheBest!</button>
-                </td>
-                <td>{id}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <Grid albums={sorted} />
+        <Table albums={sorted} />
       </div>
     </div>
   )

@@ -21,7 +21,7 @@ const Navigation = () => {
   }, [debouncedQuery, setGlobalQuery])
 
   return (
-    <header className="w-full bg-slate-600 p-8 rounded-md flex justify-between">
+    <header className="w-full bg-slate-600 p-8 rounded-md flex justify-between mb-4">
       <div className="flex gap-2">
         <Search
           onChange={setQuery}
