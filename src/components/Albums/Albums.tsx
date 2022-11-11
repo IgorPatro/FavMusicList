@@ -3,7 +3,7 @@ import { useAlbumsStore } from "store/AlbumsStore"
 import { useLangContext } from "context/LangContext"
 
 const Albums = () => {
-  const { lang, internationalizeMessage } = useLangContext()
+  const { internationalizeMessage } = useLangContext()
   const albums = useAlbumsStore((state) => state.albums)
   const removeAlbum = useAlbumsStore((state) => state.removeAlbum)
   const sorted = albums.filter((album) => album.id !== "da")
@@ -22,16 +22,13 @@ const Albums = () => {
           <tbody>
             {sorted.map(({ id, title }) => (
               <tr key={id}>
-                <td>{internationalizeMessage(title, lang)}</td>
+                <td>{internationalizeMessage(title)}</td>
                 <td>
                   <button
                     onClick={() => removeAlbum(id)}
                     className="btn btn-primary"
                   >
-                    {internationalizeMessage(
-                      { pl: "Usuń", en: "Remove" },
-                      lang
-                    )}
+                    {internationalizeMessage({ pl: "Usuń", en: "Remove" })}
                   </button>
                   <button className="btn btn-secondary">BestOfTheBest!</button>
                 </td>

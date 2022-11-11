@@ -3,7 +3,7 @@ import { useAlbumsStore } from "store/AlbumsStore"
 import { useLangContext } from "context/LangContext"
 
 const Form = () => {
-  const { lang, internationalizeMessage } = useLangContext()
+  const { internationalizeMessage } = useLangContext()
   const addAlbum = useAlbumsStore((state) => state.addAlbum)
   const [plTitle, setPlTitle] = React.useState("")
   const [enTitle, setEnTitle] = React.useState("")
@@ -19,10 +19,10 @@ const Form = () => {
 
     if (!plTitle || !enTitle) {
       return setError(
-        internationalizeMessage(
-          { pl: "Wypełnij wszystkie pola", en: "Fill all fields" },
-          lang
-        )
+        internationalizeMessage({
+          pl: "Wypełnij wszystkie pola",
+          en: "Fill all fields",
+        })
       )
     }
 
@@ -60,7 +60,7 @@ const Form = () => {
         }`}
       />
       <button type="submit" className="btn btn-active">
-        {internationalizeMessage({ en: "Add", pl: "Dodaj" }, lang)}
+        {internationalizeMessage({ en: "Add", pl: "Dodaj" })}
       </button>
       {error && <p className="text-red-400 min-h-[1em]">{error}</p>}
     </form>

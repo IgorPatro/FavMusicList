@@ -3,7 +3,7 @@ import LangContextProvider, { type Languages } from "context/LangContext"
 import { getCookie } from "cookies-next"
 import { GetServerSideProps } from "next"
 import Form from "components/Form/Form"
-import Header from "components/Header/Header"
+import Navigation from "components/Navigation/Navigation"
 import dynamic from "next/dynamic"
 
 const DynamicAlbums = dynamic(() => import("components/Albums/Albums"), {
@@ -19,10 +19,10 @@ const Home = ({ lang }: Props) => {
     <LangContextProvider value={lang}>
       <div className="p-8 pb-20 lg:p-24">
         <div className="m-auto max-w-screen-xl">
-          <Header />
+          <Navigation />
           <div className="flex gap-8 relative items-start">
             <DynamicAlbums />
-            {/* <Form /> */}
+            <Form />
           </div>
         </div>
       </div>
