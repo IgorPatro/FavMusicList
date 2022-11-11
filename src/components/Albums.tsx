@@ -1,24 +1,29 @@
-"use client"
-
 import React from "react"
 import { useAlbumsStore } from "store/AlbumsStore"
 import shallow from "zustand/shallow"
 
 const Albums = () => {
+  const [isHydrated, setIsHydrated] = React.useState(false)
   const [albums, addAlbum, removeAlbum] = useAlbumsStore(
     (state) => [state.albums, state.addAlbum, state.removeAlbum],
     shallow
   )
 
+  React.useEffect(() => {
+    setIsHydrated(true)
+  }, [])
+
   return (
     <div>
       Albums Store
       <br />
-      {albums.map((album) => (
-        <div key={album.id} onClick={() => removeAlbum(album.id)}>
-          {album.title}
-        </div>
-      ))}
+      {isHydrated && albums.length
+        ? albums.map((album) => (
+            <div key={album.id} onClick={() => removeAlbum(album.id)}>
+              {album.title}
+            </div>
+          ))
+        : "No albums"}
       <button
         onClick={() =>
           addAlbum({
