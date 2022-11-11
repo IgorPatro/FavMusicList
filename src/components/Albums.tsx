@@ -1,3 +1,5 @@
+"use client"
+
 import React from "react"
 import { useAlbumsStore } from "store/AlbumsStore"
 import shallow from "zustand/shallow"
