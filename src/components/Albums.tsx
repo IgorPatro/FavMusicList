@@ -25,6 +25,7 @@ const Albums = () => {
           ))
         : "No albums"}
       <button
+        className="btn"
         onClick={() =>
           addAlbum({
             title: `album-${Math.random().toString(36).substring(3)}`,

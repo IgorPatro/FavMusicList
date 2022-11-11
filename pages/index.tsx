@@ -11,10 +11,8 @@ interface Props {
 const Home = ({ lang }: Props) => {
   return (
     <LangContextProvider value={lang}>
-      <h1>
-        Hello world!
-        <Albums />
-      </h1>
+      <h1>Hello world!</h1>
+      <Albums />
     </LangContextProvider>
   )
 }
