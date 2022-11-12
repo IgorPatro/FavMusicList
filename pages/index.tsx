@@ -1,6 +1,7 @@
-import * as React from "react"
+import React from "react"
 import LangContextProvider, { type Languages } from "context/LangContext"
 import FilterSettingsContextProvider from "context/FilterSettingsContext"
+import ViewContextProvider, { type Views } from "context/ViewContext"
 import { getCookie } from "cookies-next"
 import { GetServerSideProps } from "next"
 import Form from "components/Form/Form"
@@ -13,23 +14,26 @@ const DynamicAlbums = dynamic(() => import("components/Albums/Albums"), {
 
 interface Props {
   lang: Languages
+  view: Views
 }
 
-const Home = ({ lang }: Props) => {
+const Home = ({ lang, view }: Props) => {
   return (
     <LangContextProvider value={lang}>
       <FilterSettingsContextProvider>
-        <div className="p-8 pb-20 lg:p-24">
-          <div className="m-auto max-w-screen-xl">
-            <Navigation />
-            <div className="flex gap-8 relative items-start">
-              <React.Suspense fallback={<div className="w-full" />}>
-                <DynamicAlbums />
-              </React.Suspense>
-              <Form />
+        <ViewContextProvider value={view}>
+          <div className="p-8 pb-20 lg:p-24">
+            <div className="m-auto max-w-screen-xl">
+              <Navigation />
+              <div className="flex gap-8 relative items-start">
+                <div className="w-full">
+                  <DynamicAlbums />
+                </div>
+                <Form />
+              </div>
             </div>
           </div>
-        </div>
+        </ViewContextProvider>
       </FilterSettingsContextProvider>
     </LangContextProvider>
   )
@@ -38,11 +42,13 @@ const Home = ({ lang }: Props) => {
 export default Home
 
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
-  const lang = getCookie("lang", ctx)
+  const lang = getCookie("lang", ctx) || "pl"
+  const view = getCookie("view", ctx) || "table"
 
   return {
     props: {
-      lang: lang,
+      lang,
+      view,
     },
   }
 }

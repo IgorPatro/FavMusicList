@@ -5,9 +5,11 @@ import Table from "icons/table"
 import Grid from "icons/grid"
 import { useDebounce } from "hooks/useDebounce"
 import { useLangContext } from "context/LangContext"
+import { useViewContext } from "context/ViewContext"
 
 const Navigation = () => {
   const { lang, changeLang, internationalizeMessage } = useLangContext()
+  const { view, switchView } = useViewContext()
   const [query, setQuery] = React.useState("")
   const debouncedQuery = useDebounce(query, 500)
   const {
@@ -54,7 +56,8 @@ const Navigation = () => {
         <label className="swap">
           <input
             type="checkbox"
-            onChange={(e) => console.log(e.target.checked)}
+            onChange={switchView}
+            checked={view === "table"}
           />
           <Table />
           <Grid />
@@ -63,9 +66,10 @@ const Navigation = () => {
           <input
             type="checkbox"
             onChange={(e) => changeLang(e.target.checked ? "pl" : "en")}
+            checked={lang === "pl"}
           />
-          <div className={`swap-${lang === "en" ? "on" : "off"}`}>EN</div>
-          <div className={`swap-${lang === "pl" ? "on" : "off"}`}>PL</div>
+          <div className="swap-on">EN</div>
+          <div className="swap-off">PL</div>
         </label>
       </div>
     </header>

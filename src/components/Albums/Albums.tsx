@@ -1,6 +1,7 @@
 import React from "react"
 import { useAlbumsStore } from "store/AlbumsStore"
 import { useFilterSettingsContext } from "context/FilterSettingsContext"
+import { useViewContext } from "context/ViewContext"
 import { filterAlbums } from "utils/filterAlbums"
 import Table from "./Table/Table"
 import Grid from "./Grid/Grid"
@@ -9,13 +10,11 @@ const Albums = () => {
   const albums = useAlbumsStore((state) => state.albums)
   const { query, order } = useFilterSettingsContext()
   const sorted = filterAlbums(albums, query, order)
+  const { view } = useViewContext()
 
   return (
-    <div className="w-full">
-      <div className="overflow-x-auto">
-        <Grid albums={sorted} />
-        <Table albums={sorted} />
-      </div>
+    <div>
+      {view === "grid" ? <Grid albums={sorted} /> : <Table albums={sorted} />}
     </div>
   )
 }

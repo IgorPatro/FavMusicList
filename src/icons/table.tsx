@@ -3,7 +3,7 @@ import React from "react"
 const Table = () => {
   return (
     <svg
-      className="swap-on fill-current"
+      className="swap-off fill-current"
       xmlns="http://www.w3.org/2000/svg"
       width="48"
       height="48"
