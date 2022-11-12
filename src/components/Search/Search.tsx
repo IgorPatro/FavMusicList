@@ -7,13 +7,13 @@ interface Props {
   placeholder?: string
 }
 
-const Search = ({ onChange, value, placeholder }: Props) => {
+const Search = ({ onChange, value, placeholder = "Search" }: Props) => {
   return (
     <div className="form-control">
       <div className="input-group">
         <input
           type="text"
-          placeholder={placeholder || "Search..."}
+          placeholder={placeholder}
           className="input input-bordered max-w-[200px] sm:max-w-auto"
           value={value}
           onChange={(e) => onChange(e.target.value)}
