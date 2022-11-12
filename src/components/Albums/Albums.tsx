@@ -12,11 +12,7 @@ const Albums = () => {
   const sorted = filterAlbums(albums, query, order, onlyBest)
   const { view } = useViewContext()
 
-  return (
-    <div>
-      {view === "grid" ? <Grid albums={sorted} /> : <Table albums={sorted} />}
-    </div>
-  )
+  return view === "grid" ? <Grid albums={sorted} /> : <Table albums={sorted} />
 }
 
 export default Albums

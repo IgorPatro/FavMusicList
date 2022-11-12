@@ -2,6 +2,7 @@ import React from "react"
 import LangContextProvider, { type Languages } from "context/LangContext"
 import FilterSettingsContextProvider from "context/FilterSettingsContext"
 import ViewContextProvider, { type Views } from "context/ViewContext"
+import FormContextProvider from "context/FormContext"
 import { getCookie } from "cookies-next"
 import { GetServerSideProps } from "next"
 import Form from "components/Form/Form"
@@ -21,19 +22,21 @@ const Home = ({ lang, view }: Props) => {
   return (
     <LangContextProvider value={lang}>
       <FilterSettingsContextProvider>
-        <ViewContextProvider value={view}>
-          <div className="p-8 pb-20 lg:p-24">
-            <div className="m-auto max-w-screen-xl">
-              <Navigation />
-              <div className="flex gap-8 relative items-start">
-                <div className="w-full">
-                  <DynamicAlbums />
+        <FormContextProvider>
+          <ViewContextProvider value={view}>
+            <div className="p-8 pb-20 lg:p-24">
+              <div className="m-auto max-w-screen-xl">
+                <Navigation />
+                <div className="flex gap-8 relative items-start">
+                  <div className="w-full">
+                    <DynamicAlbums />
+                  </div>
+                  <Form />
                 </div>
-                <Form />
               </div>
             </div>
-          </div>
-        </ViewContextProvider>
+          </ViewContextProvider>
+        </FormContextProvider>
       </FilterSettingsContextProvider>
     </LangContextProvider>
   )

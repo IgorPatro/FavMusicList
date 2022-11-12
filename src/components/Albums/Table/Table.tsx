@@ -24,13 +24,17 @@ const Table = ({ albums }: Props) => {
       </thead>
       <tbody>
         {albums.map(({ id, title, isBest }) => (
-          <tr key={id}>
-            <td>{internationalizeMessage(title)}</td>
-            <td>
+          <tr key={id} className="w-full flex justify-between">
+            <td
+              className={`flex align-middle ${
+                isBest && "text-[gold] font-bold"
+              } transition-colors w-60 sm:w-96 lg:w-[460px]`}
+            >
+              <span className="truncate">{internationalizeMessage(title)}</span>
+            </td>
+            <td className="flex align-middle gap-2 w-24">
               <ButtonTrash onClick={() => removeAlbum(id)} />
-              <ButtonBest onClick={() => switchBest(id)} isBest={isBest}>
-                BEST
-              </ButtonBest>
+              <ButtonBest onClick={() => switchBest(id)} isBest={isBest} />
             </td>
           </tr>
         ))}

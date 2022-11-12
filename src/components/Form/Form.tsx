@@ -2,6 +2,7 @@ import React from "react"
 import { useAlbumsStore } from "store/AlbumsStore"
 import { useLangContext } from "context/LangContext"
 import { Message } from "context/LangContext"
+import { useFormContext } from "context/FormContext"
 
 const Form = () => {
   const { internationalizeMessage } = useLangContext()
@@ -9,6 +10,7 @@ const Form = () => {
   const [plTitle, setPlTitle] = React.useState("")
   const [enTitle, setEnTitle] = React.useState("")
   const [errorMessage, setErrorMessage] = React.useState<Message | null>(null)
+  const { isVisible } = useFormContext()
 
   const cleanUpForm = () => {
     setPlTitle("")
@@ -38,7 +40,9 @@ const Form = () => {
   return (
     <form
       onSubmit={onSubmit}
-      className="w-[450px] bg-slate-700 p-4 flex flex-col gap-2 rounded-md sticky h-min top-10"
+      className={`${
+        isVisible ? "visible" : "invisible"
+      } w-10/12 max-w-lg fixed bottom-8 left-1/2 -translate-x-1/2 bg-slate-700 py-8 px-4 flex flex-col gap-2 rounded-md lg:sticky lg:bottom-0 lg:left-0 h-min lg:top-10 lg:translate-x-0 lg:visible lg:max-w-sm lg:p-8`}
     >
       <input
         value={plTitle}

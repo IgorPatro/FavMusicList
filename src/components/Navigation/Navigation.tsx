@@ -6,12 +6,14 @@ import Grid from "icons/grid"
 import { useDebounce } from "hooks/useDebounce"
 import { useLangContext } from "context/LangContext"
 import { useViewContext } from "context/ViewContext"
+import { useFormContext } from "context/FormContext"
 
 const Navigation = () => {
   const { lang, changeLang, internationalizeMessage } = useLangContext()
   const { view, switchView } = useViewContext()
   const [query, setQuery] = React.useState("")
   const debouncedQuery = useDebounce(query, 500)
+  const { toggleVisibility } = useFormContext()
   const {
     setQuery: setGlobalQuery,
     order,
@@ -25,8 +27,8 @@ const Navigation = () => {
   }, [debouncedQuery, setGlobalQuery])
 
   return (
-    <header className="w-full bg-slate-700 p-8 rounded-md flex justify-between mb-4">
-      <div className="flex gap-2">
+    <nav className="w-full bg-slate-700 p-6 rounded-md flex flex-col sm:flex-row justify-between mb-4 lg:p-8">
+      <div className="flex flex-col gap-2 lg:flex-row">
         <Search
           onChange={setQuery}
           value={query}
@@ -36,7 +38,7 @@ const Navigation = () => {
           })}
         />
         <select
-          className="select select-bordered w-full max-w-xs"
+          className="select select-bordered w-full max-w-xs lg:max-w-[280px]"
           value={order}
           onChange={(e) => setOrder(e.target.value as Order)}
         >
@@ -53,7 +55,7 @@ const Navigation = () => {
             })}
           </option>
         </select>
-        <button onClick={switchOnlyBest} className="btn gap-2">
+        <button onClick={switchOnlyBest} className="btn gap-2 max-w-xs">
           ONLY BEST
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -71,27 +73,43 @@ const Navigation = () => {
           </svg>
         </button>
       </div>
-      <div className="flex gap-2">
-        <label className="swap">
-          <input
-            type="checkbox"
-            onChange={switchView}
-            checked={view === "table"}
-          />
-          <Table />
-          <Grid />
-        </label>
-        <label className="swap">
-          <input
-            type="checkbox"
-            onChange={(e) => changeLang(e.target.checked ? "pl" : "en")}
-            checked={lang === "pl"}
-          />
-          <div className="swap-on">EN</div>
-          <div className="swap-off">PL</div>
-        </label>
+      <div className="flex justify-between mt-4 sm:flex-col lg:flex-row lg:mt-0">
+        <button onClick={toggleVisibility} className="btn btn-circle lg:hidden">
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M19 20H17V17H14V15H17V12H19V15H22V17H19V20ZM12 17H2V15H12V17ZM15 13H2V11H15V13ZM15 9H2V7H15V9Z"
+              fill="white"
+            />
+          </svg>
+        </button>
+        <div className="flex gap-2 justify-items-center">
+          <label className="swap">
+            <input
+              type="checkbox"
+              onChange={switchView}
+              checked={view === "table"}
+            />
+            <Table />
+            <Grid />
+          </label>
+          <label className="swap">
+            <input
+              type="checkbox"
+              onChange={(e) => changeLang(e.target.checked ? "pl" : "en")}
+              checked={lang === "pl"}
+            />
+            <div className="swap-on">EN</div>
+            <div className="swap-off">PL</div>
+          </label>
+        </div>
       </div>
-    </header>
+    </nav>
   )
 }
 

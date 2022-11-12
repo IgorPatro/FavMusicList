@@ -1,15 +1,13 @@
 import React from "react"
 
 interface Props {
-  children: React.ReactNode
   onClick: () => void
   isBest: boolean
 }
 
-const ButtonBest = ({ children, onClick, isBest }: Props) => {
+const ButtonBest = ({ onClick, isBest }: Props) => {
   return (
     <button onClick={onClick} className="btn gap-2">
-      {children}
       <svg
         xmlns="http://www.w3.org/2000/svg"
         className="h-6 w-6"
