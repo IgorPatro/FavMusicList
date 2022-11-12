@@ -1,7 +1,12 @@
 import { Album } from "store/AlbumStore.config"
 import { type Order } from "context/FilterSettingsContext"
 
-export const filterAlbums = (albums: Album[], query: string, order: Order) =>
+export const filterAlbums = (
+  albums: Album[],
+  query: string,
+  order: Order,
+  onlyBest = false
+) =>
   albums
     .filter(
       (album) =>
@@ -9,6 +14,7 @@ export const filterAlbums = (albums: Album[], query: string, order: Order) =>
         album.title.pl.toLowerCase().includes(query.toLowerCase()) ||
         album.title.en.toLowerCase().includes(query.toLowerCase())
     )
+    .filter((album) => (onlyBest ? album.isBest : true))
     .sort((a, b) =>
-      order === "newest" ? a.dateAdded - b.dateAdded : b.dateAdded - a.dateAdded
+      order === "oldest" ? a.dateAdded - b.dateAdded : b.dateAdded - a.dateAdded
     )

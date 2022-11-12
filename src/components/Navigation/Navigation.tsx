@@ -15,7 +15,9 @@ const Navigation = () => {
   const {
     setQuery: setGlobalQuery,
     order,
+    onlyBest,
     setOrder,
+    switchOnlyBest,
   } = useFilterSettingsContext()
 
   React.useEffect(() => {
@@ -23,7 +25,7 @@ const Navigation = () => {
   }, [debouncedQuery, setGlobalQuery])
 
   return (
-    <header className="w-full bg-slate-600 p-8 rounded-md flex justify-between mb-4">
+    <header className="w-full bg-slate-700 p-8 rounded-md flex justify-between mb-4">
       <div className="flex gap-2">
         <Search
           onChange={setQuery}
@@ -51,6 +53,23 @@ const Navigation = () => {
             })}
           </option>
         </select>
+        <button onClick={switchOnlyBest} className="btn gap-2">
+          ONLY BEST
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill={onlyBest ? "gold" : "none"}
+            viewBox="0 0 24 24"
+            stroke="gold"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth="2"
+              d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+            />
+          </svg>
+        </button>
       </div>
       <div className="flex gap-2">
         <label className="swap">

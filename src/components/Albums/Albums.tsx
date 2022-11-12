@@ -8,8 +8,8 @@ import Grid from "./Grid/Grid"
 
 const Albums = () => {
   const albums = useAlbumsStore((state) => state.albums)
-  const { query, order } = useFilterSettingsContext()
-  const sorted = filterAlbums(albums, query, order)
+  const { query, order, onlyBest } = useFilterSettingsContext()
+  const sorted = filterAlbums(albums, query, order, onlyBest)
   const { view } = useViewContext()
 
   return (

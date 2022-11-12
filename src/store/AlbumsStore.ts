@@ -7,6 +7,7 @@ interface AlbumsState {
   albums: Album[]
   addAlbum: (album: Omit<Album, "id" | "isBest" | "dateAdded">) => void
   removeAlbum: (albumId: string) => void
+  switchBest: (albumId: string) => void
 }
 
 export const useAlbumsStore = create<AlbumsState>()(
@@ -25,6 +26,12 @@ export const useAlbumsStore = create<AlbumsState>()(
       removeAlbum: (albumId) =>
         set((state) => ({
           albums: state.albums.filter((album) => album.id !== albumId),
+        })),
+      switchBest: (albumId) =>
+        set((state) => ({
+          albums: state.albums.map((album) =>
+            album.id === albumId ? { ...album, isBest: !album.isBest } : album
+          ),
         })),
     }),
     {
