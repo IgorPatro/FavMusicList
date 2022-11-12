@@ -14,7 +14,7 @@ const Search = ({ onChange, value, placeholder }: Props) => {
         <input
           type="text"
           placeholder={placeholder || "Search..."}
-          className="input input-bordered"
+          className="input input-bordered max-w-[200px] sm:max-w-auto"
           value={value}
           onChange={(e) => onChange(e.target.value)}
         />

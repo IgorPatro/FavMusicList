@@ -28,7 +28,7 @@ const Table = ({ albums }: Props) => {
             <td
               className={`flex align-middle ${
                 isBest && "text-[gold] font-bold"
-              } transition-colors w-60 sm:w-96 lg:w-[460px]`}
+              } transition-colors w-40 sm:w-96 lg:w-[460px]`}
             >
               <span className="truncate flex items-center">
                 {internationalizeMessage(title)}
