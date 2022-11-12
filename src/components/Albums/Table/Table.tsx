@@ -30,7 +30,9 @@ const Table = ({ albums }: Props) => {
                 isBest && "text-[gold] font-bold"
               } transition-colors w-60 sm:w-96 lg:w-[460px]`}
             >
-              <span className="truncate">{internationalizeMessage(title)}</span>
+              <span className="truncate flex items-center">
+                {internationalizeMessage(title)}
+              </span>
             </td>
             <td className="flex align-middle gap-2 w-24">
               <ButtonTrash onClick={() => removeAlbum(id)} />
